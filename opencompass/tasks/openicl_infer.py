@@ -13,6 +13,7 @@ from opencompass.registry import (ICL_INFERENCERS, ICL_PROMPT_TEMPLATES,
                                   ICL_RETRIEVERS, TASKS)
 from opencompass.tasks.base import BaseTask
 from opencompass.utils import (build_dataset_from_cfg, build_model_from_cfg,
+                               build_model_from_cfg_with_context,
                                get_infer_output_path, get_logger,
                                model_abbr_from_cfg, task_abbr_from_cfg)
 
@@ -70,7 +71,7 @@ class OpenICLInferTask(BaseTask):
             if cur_model and cur_model_abbr == model_abbr_from_cfg(model_cfg):
                 self.model = cur_model
             else:
-                self.model = build_model_from_cfg(model_cfg)
+                self.model = build_model_from_cfg_with_context(model_cfg, self.work_dir)
 
             for dataset_cfg in dataset_cfgs:
                 self.model_cfg = model_cfg

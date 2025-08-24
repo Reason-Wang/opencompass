@@ -70,6 +70,11 @@ class NumWorkerPartitioner(BasePartitioner):
                     if osp.exists(filename):
                         continue
                     dataset_size = self.get_size(dataset)
+                    # print(f"dataset: {dataset}")
+                    # print(f"dataset_size: {dataset_size}")
+                    # print(f"self.num_split: {self.num_split}")
+                    # print(f"self.min_task_size: {self.min_task_size}")
+                    # print(f"self.strategy: {self.strategy}")
                     if self.num_split <= 1:
                         chunks.append(dataset)
                     elif dataset_size <= self.min_task_size:
@@ -136,6 +141,7 @@ class NumWorkerPartitioner(BasePartitioner):
         test_range = dataset.reader_cfg.get('test_range', '')
 
         # If not forcing rebuild and data exists in cache, use the cache
+        
         if not self.force_rebuild and dataset_abbr in self.dataset_size:
             actual_size = eval('len(range(self.dataset_size[dataset_abbr])'
                                f'{test_range})')

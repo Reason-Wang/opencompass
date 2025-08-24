@@ -1,4 +1,10 @@
 DATASETS_MAPPING = {
+    # DeepMath Datasets
+    "deepmath": {
+        "ms_id": None,
+        "hf_id": None,
+        "local": "./data/eval_data/deepmath/",
+    },
     # KLCE Datasets
     "opencompass/kcle":{
         "ms_id": None,

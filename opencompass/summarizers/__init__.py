@@ -5,3 +5,4 @@ from .default_subjective import DefaultSubjectiveSummarizer  # noqa: F401
 from .llm_compression import LLMCompressionSummarizer  # noqa: F401
 from .multi_faceted import MultiFacetedSummarizer  # noqa: F401
 from .subjective import *  # noqa: F401
+from .metrics_summarizer import MetricsSummarizer  # noqa: F401

@@ -110,6 +110,7 @@ class GenericLLMEvaluator(BaseEvaluator):
         # ---------------- Build Dataset for LLM Judge -----------------
         if self.dataset_cfg:
             dataset = build_dataset_from_cfg(self.dataset_cfg)
+            print(f"dataset: {dataset}")
             for k, v in prediction_dict.items():
                 dataset.reader.dataset['test'] = dataset.test.add_column(k, v)
                 dataset.reader.input_columns.append(k)
@@ -156,6 +157,7 @@ class GenericLLMEvaluator(BaseEvaluator):
             )
 
         dataset.reader.output_column = 'reference'
+        
         retriever = ZeroRetriever(dataset)
         # ----------------- LLM Judge ----------------
         self.inferencer.inference(retriever=retriever,
@@ -180,7 +182,9 @@ class GenericLLMEvaluator(BaseEvaluator):
         if self.dict_postprocessor is None:
             return output
         else:
+            print(f"self.dict_postprocessor: {self.dict_postprocessor}")
             kwargs = deepcopy(self.dict_postprocessor)
+            print(f"DICT_POSTPROCESSORS: {DICT_POSTPROCESSORS}")
             proc = DICT_POSTPROCESSORS.get(kwargs.pop('type'))
             sig = inspect.signature(proc)
             if 'dataset' in sig.parameters:

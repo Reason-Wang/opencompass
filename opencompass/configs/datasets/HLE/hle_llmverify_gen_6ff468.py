@@ -4,7 +4,7 @@ from opencompass.openicl.icl_inferencer import GenInferencer
 from opencompass.evaluator import GenericLLMEvaluator
 from opencompass.datasets import generic_llmjudge_postprocess
 from opencompass.datasets import HLEDataset
-
+from opencompass.datasets import HLEDataset300
 # ----------------------------- Detailed Config -----------------------------
 
 math_reader_cfg = dict(input_columns=['problem'], output_column='answer')
@@ -68,7 +68,7 @@ math_eval_cfg = dict(
             ]),
         ),
         dataset_cfg=dict(
-            type=HLEDataset,
+            type=HLEDataset300,
             path='cais/hle',
             reader_cfg=math_reader_cfg,
         ),
@@ -82,6 +82,17 @@ math_eval_cfg = dict(
 hle_datasets = [
     dict(
         type=HLEDataset,
+        abbr='hle_llmjudge',
+        path='cais/hle',
+        reader_cfg=math_reader_cfg,
+        infer_cfg=math_infer_cfg,
+        eval_cfg=math_eval_cfg,
+    )
+]
+
+hle_datasets_300 = [
+    dict(
+        type=HLEDataset300,
         abbr='hle_llmjudge',
         path='cais/hle',
         reader_cfg=math_reader_cfg,

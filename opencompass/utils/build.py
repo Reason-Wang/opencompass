@@ -22,3 +22,25 @@ def build_model_from_cfg(model_cfg: ConfigDict):
     model_cfg.pop('pred_postprocessor', None)
     model_cfg.pop('min_out_len', None)
     return MODELS.build(model_cfg)
+
+
+def build_model_from_cfg_with_context(model_cfg: ConfigDict, work_dir: str = None):
+    """Build model from config with work directory context injection.
+    
+    Args:
+        model_cfg (ConfigDict): Model configuration
+        work_dir (str, optional): Work directory for the evaluation context
+    
+    Returns:
+        Model instance with work directory context set
+    """
+    # Set work directory context if provided
+    if work_dir:
+        try:
+            from opencompass.models.custom.custom_api_model import set_work_dir_context
+            set_work_dir_context(work_dir)
+        except ImportError:
+            # If custom module is not available, just continue without setting context
+            pass
+    
+    return build_model_from_cfg(model_cfg)

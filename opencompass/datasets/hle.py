@@ -18,3 +18,17 @@ class HLEDataset(BaseDataset):
         dataset['train'] = ds
         dataset['test'] = ds
         return dataset
+
+
+@LOAD_DATASET.register_module()
+class HLEDataset300(BaseDataset):
+    @staticmethod
+    def load(path: str, category: str | None = None):
+        dataset = load_dataset(path)
+        ds = dataset['test'].filter(lambda x: x['image'] == '')
+        if category:
+            ds = ds.filter(lambda x: x['category'] == category)
+        ds = ds.rename_column('question', 'problem')
+        dataset['train'] = ds.select(range(300))
+        dataset['test'] = ds.select(range(300))
+        return dataset
