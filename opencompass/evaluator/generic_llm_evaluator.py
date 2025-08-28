@@ -219,6 +219,7 @@ class GenericLLMEvaluator(BaseEvaluator):
             verbose=True,
             max_out_len=16384,
             max_seq_len=49152,
+            mode='mid',
         )
 
         return DEFAULT_JUDGE_CFG

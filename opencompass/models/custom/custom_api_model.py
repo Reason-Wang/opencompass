@@ -28,6 +28,9 @@ class OpenAISDKWithMetrics(OpenAISDK):
         """Override _generate to track metrics from API response"""
         start_time = time.time()
         
+        if os.environ.get("TIMEOUT"):
+            timeout = int(os.environ.get("TIMEOUT"))
+        
         # Preprocess input to get messages
         messages, max_out_len = self._preprocess_messages(
             input, max_out_len, self.max_seq_len, self.mode, self.get_token_len)
