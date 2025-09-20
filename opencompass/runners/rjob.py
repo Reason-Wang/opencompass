@@ -95,6 +95,10 @@ class RJOBRunner(BaseRunner):
                 logger.info(f'line: {line}')
                 if 'rjob oc-infer' not in line and 'rjob oc-eval' not in line:
                     continue
+                if 'Unknown' in line:
+                    status = 'Unknown'
+                    found_dict = True
+                    break
                 if 'Starting' in line:
                     status = 'Starting'
                     found_dict = True
@@ -171,6 +175,7 @@ class RJOBRunner(BaseRunner):
         mmengine.mkdir_or_exist('tmp/')
         uuid_str = str(uuid.uuid4())
         param_file = f'{pwd}/tmp/{uuid_str}_params.py'
+
         try:
             cfg.dump(param_file)
             # Construct rjob submit command arguments
@@ -179,14 +184,17 @@ class RJOBRunner(BaseRunner):
             args.append(f'--name={task_name}')
             if num_gpus > 0:
                 args.append(f'--gpu={num_gpus}')
-            if hasattr(task, 'memory'):
-                args.append(f'--memory={getattr(task, "memory")}')
-            elif self.rjob_cfg.get('memory', 300000):
-                args.append(f'--memory={self.rjob_cfg["memory"]}')
-            if hasattr(task, 'cpu'):
-                args.append(f'--cpu={getattr(task, "cpu")}')
-            elif self.rjob_cfg.get('cpu', 16):
-                args.append(f'--cpu={self.rjob_cfg["cpu"]}')
+                args.append(f'--memory={num_gpus * 160000}')
+                args.append(f'--cpu={num_gpus * 16}')
+            else:
+                if hasattr(task, 'memory'):
+                    args.append(f'--memory={getattr(task, "memory")}')
+                elif self.rjob_cfg.get('memory', 300000):
+                    args.append(f'--memory={self.rjob_cfg["memory"]}')
+                if hasattr(task, 'cpu'):
+                    args.append(f'--cpu={getattr(task, "cpu")}')
+                elif self.rjob_cfg.get('cpu', 16):
+                    args.append(f'--cpu={self.rjob_cfg["cpu"]}')
             if self.rjob_cfg.get('charged_group'):
                 args.append(
                     f'--charged-group={self.rjob_cfg["charged_group"]}')
@@ -238,7 +246,7 @@ class RJOBRunner(BaseRunner):
 
             retry = self.retry
             if retry == 0:
-                retry = 100
+                retry = 20
             while retry > 0:
                 # Only submit, no polling
                 result = subprocess.run(cmd,
