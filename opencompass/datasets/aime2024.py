@@ -1,7 +1,6 @@
 import json
 
-from datasets import Dataset
-
+from datasets import Dataset, load_dataset
 from opencompass.registry import LOAD_DATASET
 from opencompass.utils import get_data_path
 
@@ -23,3 +22,10 @@ class Aime2024Dataset(BaseDataset):
                 line['answer'] = line['gold_answer']
                 dataset.append(line)
         return Dataset.from_list(dataset)
+
+@LOAD_DATASET.register_module()
+class Aime2024DatasetHF(BaseDataset):
+    @staticmethod
+    def load(path, **kwargs):
+        dataset = load_dataset(path)
+        return dataset
