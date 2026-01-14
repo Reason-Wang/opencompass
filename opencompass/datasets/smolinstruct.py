@@ -18,7 +18,7 @@ from .base import BaseDataset
 class SmolInstructDataset(BaseDataset):
 
     @staticmethod
-    def load(path: str, name: str):
+    def load(path: str, name: str, mini_set=False):
         dataset = DatasetDict()
         raw_dataset = load_dataset(path, trust_remote_code=True)
         for split in ['validation', 'test']:
@@ -26,6 +26,10 @@ class SmolInstructDataset(BaseDataset):
             for data in raw_dataset[split]:
                 if data['task'] == name:
                     raw_data.append(data)
+            if mini_set and split == 'test':
+                random.seed(1024)
+                raw_data = random.sample(raw_data, min(500, len(raw_data)))
+                random.seed(0)
             dataset[split] = Dataset.from_list(raw_data)
         return dataset
 
@@ -463,9 +467,12 @@ def smolinstruct_acc_0shot_postprocess(text: str) -> str:
     patterns = [
         r'\\boxed\{\s*(yes|no)\s*\}',
         r'[Th]he\s+answer\s+is\s*[\.:\'"“‘’\-]*\s*(yes|no)[\s\.,!?:;\'"”’\-]*',
-        r'[Aa]nswer:\s*(yes|no)\b', r'\*\*[Aa]nswer:\*\*\s*(yes|no)\b',
+        r'[Aa]nswer:\s*(yes|no)\b',
+        r'\*\*[Aa]nswer:\*\*\s*(yes|no)\b',
         r'\*\*[Aa]nswer\*\*:\s*(yes|no)\b',
-        r'<BOOLEAN>\s*(yes|no)\s*</BOOLEAN>', r'^\s*(yes|no)[\.\?!]?\s*$'
+        r'<BOOLEAN>\s*(yes|no)\s*</BOOLEAN>',
+        r'^\s*(yes|no)[\.\?!]?\s*$',
+        r'<\|begin_of_box\|>\s*(yes|no)\s*<\|end_of_box\|>',
     ]
     for pattern in patterns:
         text = text.strip()

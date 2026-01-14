@@ -11,7 +11,9 @@ from .ax import *  # noqa: F401, F403
 from .babilong import *  # noqa: F401, F403
 from .bbeh import *  # noqa: F401, F403
 from .bbh import *  # noqa: F401, F403
+from .beyondaime import *  # noqa: F401, F403
 from .bigcodebench import *  # noqa: F401, F403
+from .biodata import *  # noqa: F401, F403
 from .boolq import *  # noqa: F401, F403
 from .bustum import *  # noqa: F401, F403
 from .c3 import *  # noqa: F401, F403
@@ -20,6 +22,7 @@ from .CARDBiomedBench import CARDBiomedBenchDataset  # noqa: F401
 from .cb import *  # noqa: F401, F403
 from .ceval import *  # noqa: F401, F403
 from .charm import *  # noqa: F401, F403
+from .chatml import *  # noqa: F401, F403
 from .chem_exam import *  # noqa: F401, F403
 from .chembench import *  # noqa: F401, F403
 from .chid import *  # noqa: F401, F403
@@ -34,6 +37,7 @@ from .cmb import *  # noqa: F401, F403
 from .cmmlu import *  # noqa: F401, F403
 from .cmnli import *  # noqa: F401, F403
 from .cmo_fib import *  # noqa: F401, F403
+from .cmphysbench import *  # noqa: F401, F403
 from .cmrc import *  # noqa: F401, F403
 from .codecompass import *  # noqa: F401, F403
 from .commonsenseqa import *  # noqa: F401, F403
@@ -72,6 +76,7 @@ from .humaneval_multi import *  # noqa: F401, F403
 from .humaneval_pro import *  # noqa: F401, F403
 from .humanevalx import *  # noqa: F401, F403
 from .hungarian_math import *  # noqa: F401, F403
+from .IFBench.ifbench import IFBenchEvaluator  # noqa: F401, F403
 from .IFEval.ifeval import IFEvalDataset, IFEvaluator  # noqa: F401, F403
 from .inference_ppl import InferencePPLDataset  # noqa: F401, F403
 from .infinitebench import *  # noqa: F401, F403
@@ -88,6 +93,7 @@ from .LCBench import *  # noqa: F401, F403
 from .lcsts import *  # noqa: F401, F403
 from .leval import *  # noqa: F401, F403
 from .livecodebench import *  # noqa: F401, F403
+from .livecodebench_pro import *  # noqa: F401, F403
 from .livemathbench import *  # noqa: F401, F403
 from .livereasonbench import *  # noqa: F401, F403
 from .livestembench import *  # noqa: F401, F403
@@ -116,6 +122,7 @@ from .mmlu_cf import *  # noqa: F401, F403
 from .mmlu_pro import *  # noqa: F401, F403
 from .MMLUArabic import *  # noqa: F401, F403
 from .mmmlu import *  # noqa: F401, F403
+from .mol_instructions_chem import *  # noqa: F401, F403
 from .multipl_e import *  # noqa: F401, F403
 from .multirc import *  # noqa: F401, F403
 from .musr import *  # noqa: F401, F403
@@ -125,12 +132,16 @@ from .natural_question_cn import *  # noqa: F401, F403
 from .nejmaibench import *  # noqa: F401, F403
 from .NPHardEval import *  # noqa: F401, F403
 from .obqa import *  # noqa: F401, F403
+from .ojbench import OJBenchDataset  # noqa: F401, F403
 from .olymmath import *  # noqa: F401, F403
 from .OlympiadBench import *  # noqa: F401, F403
 from .OpenFinData import *  # noqa: F401, F403
+from .OpenSWI import *  # noqa: F401, F403
 from .phybench import *  # noqa: F401, F403
 from .physics import *  # noqa: F401, F403
+from .PI_LLM import PILLMDataset  # noqa: F401
 from .piqa import *  # noqa: F401, F403
+from .ProcessBench import *  # noqa: F401, F403
 from .ProteinLMBench import *  # noqa: F401, F403
 from .py150 import *  # noqa: F401, F403
 from .qasper import *  # noqa: F401, F403
@@ -147,6 +158,7 @@ from .scibench import ScibenchDataset, scibench_postprocess  # noqa: F401, F403
 from .scicode import *  # noqa: F401, F403
 from .SciEval import SciEvalDataset  # noqa: F401
 from .SciKnowEval import *  # noqa: F401, F403
+from .SciReasoner import *  # noqa: F401, F403
 from .SeedBench import *  # noqa: F401, F403
 from .simpleqa import *  # noqa: F401, F403
 from .siqa import *  # noqa: F401, F403
